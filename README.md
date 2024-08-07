@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+To setup terminals:
+    ruby server
+    yarn build:css --watch
+    yarn build --watch
+
+    both yarn build are found in ruby Procfile.dev command

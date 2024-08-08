@@ -1,8 +1,8 @@
 <%= render @quiz %>
 
 <div>
-  <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
-  <%= link_to "Back to quizzes", quizzes_path %>
+  <%= link_to "Edit this quiz", edit_quiz_path(@quiz),  class: btn_class %> |
+  <%= link_to "Back to quizzes", quizzes_path,  class: btn_class %>
 
-  <%= button_to "Destroy this quiz", @quiz, method: :delete %>
+  <%= button_to "Destroy this quiz", @quiz, method: :delete, class: btn_class %>
 </div>

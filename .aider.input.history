@@ -37,3 +37,9 @@
 
 # 2024-08-08 11:51:50.121387
 +exit
+
+# 2024-08-08 12:07:55.853462
++create a more modern look for the error pop ups when a user is trying to crate a quiz but leves the iputs empty. Use tailwind css alert components
+
+# 2024-08-08 12:09:17.261696
++aider --help

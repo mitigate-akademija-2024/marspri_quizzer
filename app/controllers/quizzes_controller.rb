@@ -42,9 +42,13 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to quiz_url(@quiz), notice: "Quiz was successfully created." }
+        format.html do
+          flash.notice = "Quiz was successfully created this time."
+          redirect_to quiz_url(@quiz)
+        end
         format.json { render :show, status: :created, location: @quiz }
       else
+        flash.now.alert = 'Something went wrong'
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end

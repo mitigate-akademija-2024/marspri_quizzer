@@ -52,3 +52,45 @@
 
 # 2024-08-08 19:51:08.836587
 +create a more modern look for the whay all alrady crated quizzes are displayed on website, use tailwind css ruby on rails
+
+# 2024-08-09 06:33:31.981429
++Create a more modern look for the way avalible quizzes are displayed on the web app, use ruby on rails, tailwind css, and write the code inn the same style as i have already 
+
+# 2024-08-09 06:34:36.083321
++did you change anything in my code?
+
+# 2024-08-09 06:35:43.829361
++i dont like it make it more modern
+
+# 2024-08-09 06:37:14.371517
++make the quizzes be displayed in a table, tailwind Base with divided rows and call to action
+
+# 2024-08-09 06:38:07.529122
++make the spacing between the rows bigger, so they are less squshed toogether
+
+# 2024-08-09 06:40:16.796643
++increase the space between the horizontal rows more
+
+# 2024-08-09 06:41:00.143584
++make the start quiz buttons smaller
+
+# 2024-08-09 06:41:40.467008
++recall the start quiz button to open quizz
+
+# 2024-08-09 06:42:17.686106
++reverse the last change you made
+
+# 2024-08-09 06:57:21.714889
++I'm looking for a cohesive color palette that's easy on the eyes but still engaging. Perhaps a combination of cool blues and greys with accent colors for important elements.
+
+# 2024-08-09 06:58:06.444384
++/undo
+
+# 2024-08-09 06:58:26.152190
++The quiz creation and taking forms should look clean and intuitive.
+
+# 2024-08-09 06:59:48.149702
++make the error message smaller and in the color red when something whent wrong
+
+# 2024-08-09 07:01:34.142152
++add the error message at the top of the page above quiz title, and make the alerts Base with title, icon, description and dismiss

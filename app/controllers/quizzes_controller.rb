@@ -5,26 +5,24 @@ class QuizzesController < ApplicationController
   def index
     @quizzes = Quiz.all
 
-    @title ='These are all quizzes'
-    @description = 'Play good'
+    @title = 'These are the quizzes'
+    @description = 'lorem ipsum'
   end
 
   def start
-     @title = 'Start quizz'
-     @description = 'GO GO GO! :D'
+    @title = 'Start some quiz'
+    @description = 'lorem ipsum'
 
     respond_to do |format|
-      format.html 
-      format.json do 
-        render json: {title: @title, description: @description}
+      format.html
+      format.json do
+        render json: { title: @title, description: "Šī ir json atbilde" }
       end
     end
   end
 
-
   # GET /quizzes/1 or /quizzes/1.json
   def show
-    # render 'start'
   end
 
   # GET /quizzes/new
@@ -88,6 +86,4 @@ class QuizzesController < ApplicationController
     def quiz_params
       params.require(:quiz).permit(:title, :description)
     end
-
-  
 end

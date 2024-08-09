@@ -1,8 +1,9 @@
-<%= form_with(model: [question.quiz, question], class: "space-y-6") do |form| %>
+<%= form_with(model: question.persisted? ? question : [question.quiz, question]) do |form| %>
   <% if question.errors.any? %>
-    <div class="text-red-500 text-sm mb-4">
-      <p><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</p>
-      <ul class="list-disc pl-5 mt-1">
+    <div style="color: red">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
         <% question.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,11 +12,20 @@
   <% end %>
 
   <div>
-    <%= form.label :question_text, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_area :question_text, rows: 3, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+    <%= form.label :question_text %>
+    <%= form.text_field :question_text %>
+
+    <%= form.fields_for :answers do |ff| %>
+      <li>
+        <%= ff.label :answer_text %>
+        <%= ff.text_field :answer_text %>
+        <%= ff.check_box :correct %>
+      </li>
+    <% end %>
   </div>
 
-  <div>
-    <%= form.submit class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  <div class="mt-4">
+    <%= form.submit %>
+    <%= form.submit :add_answer %>
   </div>
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_with(model: question.persisted? ? question : [question.quiz, question]) do |form| %>
+<%= form_with(model: question.persisted? ? question : [question.quiz, question], data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <% if question.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -11,21 +11,27 @@
     </div>
   <% end %>
 
+    <template data-nested-form-target="template">
+    <%= form.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_fields| %>
+      <%= render "answer_form", form: answer_fields %>
+    <% end %>
+  </template>
+
   <div>
     <%= form.label :question_text %>
     <%= form.text_field :question_text %>
 
     <%= form.fields_for :answers do |ff| %>
-      <li>
-        <%= ff.label :answer_text %>
-        <%= ff.text_field :answer_text %>
-        <%= ff.check_box :correct %>
-      </li>
+      <%= render "answer_form", form: ff %>
     <% end %>
+
+    <div data-nested-form-target="target"></div>
+
+    <button type="button" data-action="nested-form#add", class='<%= btn_class_small %>'>Add answer</button>
+
   </div>
 
   <div class="mt-4">
     <%= form.submit %>
-    <%= form.submit :add_answer %>
   </div>
 <% end %>

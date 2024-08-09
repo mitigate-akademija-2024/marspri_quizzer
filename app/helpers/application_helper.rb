@@ -10,4 +10,10 @@ module ApplicationHelper
     def format_date(date)
         date.strftime('%F')
       end
+
+    def btn_class_xs
+        'inline-block rounded border border-red-600 px-1 py-1 text-xs font-medium text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-500'
+
+    end
+
 end

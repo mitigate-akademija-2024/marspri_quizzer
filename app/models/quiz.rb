@@ -7,6 +7,7 @@ class Quiz < ApplicationRecord
   before_save :normalize_description
 
   has_many :questions, dependent: :destroy
+  has_many :results, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: :all_blank
 
   def unanswered_questions?(answers)
@@ -27,6 +28,12 @@ class Quiz < ApplicationRecord
   def normalize_description
     Rails.logger.info("Quiz#normalize_description called")
     self.description = description.to_s.squish
+  end
+
+  public
+
+  def top_scores(limit = 10)
+    results.order(score: :desc, created_at: :asc).limit(limit).includes(:user)
   end
 
   private

@@ -1485,3 +1485,181 @@
 
 # 2024-08-12 09:20:41.824189
 +Update the styling of the "/quizzes/new" page to give it a more contemporary look. Ensure the buttons have a uniform design across the page. Implement Tailwind CSS for styling. Maintain all existing functionality of the page without altering its core features or purpose.
+
+# 2024-08-12 09:23:54.438420
++As a user, I want to be able to see the top score view for every quiz I create. In this view, I want to see the top 10 results with information about the user who completed the quiz(name), the result and the date of the examination. The results in the view should be ordered so that the best result is at the top of the view.
+
+# 2024-08-12 09:25:40.294173
++protected method `top_scores' called for #<Quiz id: 16, title: "What pizza are you?", description: "qq", created_at: "2024-08-08 21:04:45.383057000 +0000", updated_at: "2024-08-08 21:04:45.383057000 +0000">
++Extracted source (around line #144):
++142
++143
++144
++145
++146
++147
++              
++
++  def top_scores
++    @top_scores = @quiz.top_scores
++  end
++
++  private
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/controllers/quizzes_controller.rb:144:in `top_scores'
++Request
++Parameters:
++
++{"id"=>"16"}
+
+# 2024-08-12 09:26:02.641385
++NameError in QuizzesController#top_scores
++undefined local variable or method `results' for #<Quiz id: 16, title: "What pizza are you?", description: "qq", created_at: "2024-08-08 21:04:45.383057000 +0000", updated_at: "2024-08-08 21:04:45.383057000 +0000">
++Extracted source (around line #35):
++33
++34
++35
++36
++37
++38
++              
++
++  def top_scores(limit = 10)
++    results.order(score: :desc, created_at: :asc).limit(limit).includes(:user)
++  end
++
++  private
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/models/quiz.rb:35:in `top_scores'
++app/controllers/quizzes_controller.rb:144:in `top_scores'
++Request
++Parameters:
++
++{"id"=>"16"}
+
+# 2024-08-12 09:26:30.596424
++NameError in QuizzesController#top_scores
++Missing model class Result for the Quiz#results association. You can specify a different model class with the :class_name option.
++Extracted source (around line #36):
++34
++35
++36
++37
++38
++39
++              
++
++  def top_scores(limit = 10)
++    results.order(score: :desc, created_at: :asc).limit(limit).includes(:user)
++  end
++
++  private
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/models/quiz.rb:36:in `top_scores'
++app/controllers/quizzes_controller.rb:144:in `top_scores'
++Exception Causes
++NameError: uninitialized constant Quiz::Result
++Request
+
+# 2024-08-12 09:27:06.722927
++ActiveRecord::StatementInvalid in QuizzesController#top_scores
++Could not find table 'results'
++Extracted source (around line #36):
++34
++35
++36
++37
++38
++39
++              
++
++  def top_scores(limit = 10)
++    results.order(score: :desc, created_at: :asc).limit(limit).includes(:user)
++  end
++
++  private
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/models/quiz.rb:36:in `top_scores'
++app/controllers/quizzes_controller.rb:144:in `top_scores'
++Request
++Parameters:
++
++{"id"=>"16"}
+
+# 2024-08-12 09:28:18.017026
++ActiveRecord::PendingMigrationError
++Migrations are pending. To resolve this issue, run:
++bin/rails db:migrate
++You have 1 pending migration:
++db/migrate/20240812092706_create_results.rb
++Run pending migrations
++Extracted source (around line #755):
++753
++754
++755
++756
++757
++758
++              
++
++        if migrations.any?
++          raise ActiveRecord::PendingMigrationError.new(pending_migrations: migrations)
++        end
++      end
++
++
++Rails.root: /workspaces/marspri_quizzer
+
+# 2024-08-12 09:30:30.210736
++when the user completes the quiz request a name so that the score can be acocated with a specific user so then the score will be displayed in the top scores page
+
+# 2024-08-12 09:31:55.536496
++ActiveRecord::StatementInvalid in QuizzesController#submit
++Could not find table 'users'
++Extracted source (around line #113):
++111
++112
++113
++114
++115
++116
++              
++    end
++
++    user = User.find_or_create_by(name: params[:user_name])
++    Result.create(quiz: @quiz, user: user, score: @score)
++
++    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers, user_name: params[:user_name])
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/controllers/quizzes_controller.rb:113:in `submit'
++Request
++Parameters:
++
++{"authenticity_token"=>"[FILTERED]", "user_name"=>"Marta", "answers"=>{"26"=>"36", "27"=>"42", "29"=>"49", "31"=>"55"}, "commit"=>"Submit Quiz", "id"=>"16"}
+
+# 2024-08-12 09:33:05.513427
++add the top scores button to the /quizzes page for each quiz 
+
+# 2024-08-12 09:34:21.566699
++remove the top scores button from /quizzes/id page
+
+# 2024-08-12 09:35:52.395112
++in this page /quizzes/id/top_scores instead of back to quiz button repace it with back to quizzes that rederects the user to /quizzes page
+
+# 2024-08-12 09:36:44.273023
++Update the styling of the "/quizzes" page to give it a more contemporary look. Ensure the buttons have a uniform design across the page. Implement Tailwind CSS for styling. Maintain all existing functionality of the page without altering its core features or purpose.

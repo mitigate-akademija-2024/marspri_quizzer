@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy take submit results ]
+  before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -104,7 +104,16 @@ class QuizzesController < ApplicationController
 
     @user_answers = params.require(:answers).permit!.to_h
     @score = calculate_score(@questions, @user_answers)
-    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers)
+    
+    if params[:user_name].blank?
+      flash[:alert] = "Please enter your name before submitting."
+      redirect_to take_quiz_path(@quiz, answers: @user_answers) and return
+    end
+
+    user = User.find_or_create_by(name: params[:user_name])
+    Result.create(quiz: @quiz, user: user, score: @score)
+
+    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers, user_name: params[:user_name])
   end
 
   def calculate_score(questions, user_answers)
@@ -138,6 +147,10 @@ class QuizzesController < ApplicationController
     @score = params[:score]
     @user_answers = params[:user_answers].to_unsafe_h if params[:user_answers].present?
     render :shared_results
+  end
+
+  def top_scores
+    @top_scores = @quiz.top_scores
   end
 
   private

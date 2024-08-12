@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'results', on: :member
     get 'share_results', on: :member
     get 'shared_results', on: :member
+    get 'top_scores', on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

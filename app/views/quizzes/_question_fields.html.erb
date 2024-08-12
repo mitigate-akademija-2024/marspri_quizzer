@@ -1,0 +1,29 @@
+<div class="nested-form-wrapper question-fields bg-gray-50 p-4 rounded-md mb-4">
+  <%= form.hidden_field :_destroy %>
+  <div class="mb-3">
+    <%= form.label :question_text, "Question", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :question_text, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+  </div>
+
+  <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <div class="answers space-y-2">
+      <h4 class="text-sm font-medium text-gray-700">Answers</h4>
+      <%= form.fields_for :answers do |answer_form| %>
+        <%= render "answer_fields", form: answer_form %>
+      <% end %>
+      <div data-nested-form-target="target"></div>
+    </div>
+
+    <template data-nested-form-target="template">
+      <%= form.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_form| %>
+        <%= render "answer_fields", form: answer_form %>
+      <% end %>
+    </template>
+
+    <div>
+      <%= button_tag "Add Answer", type: 'button', class: "mt-2 inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: { action: "nested-form#add" } %>
+    </div>
+  </div>
+
+  <%= button_tag "Remove Question", type: 'button', class: "mt-2 ml-2 inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500", data: { action: "click->nested-form#remove" } %>
+</div>

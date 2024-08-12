@@ -1,0 +1,34 @@
+<div class="bg-gray-100 min-h-screen py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+      <div class="p-6 sm:p-10">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-4"><%= @quiz.title %> - Share Results</h1>
+        <p class="text-xl text-gray-600 mb-8">Your score: <%= @score %>%</p>
+
+        <div class="bg-gray-50 rounded-lg p-6 mb-8">
+          <h2 class="text-2xl font-semibold mb-4">Shareable URL</h2>
+          <div class="flex items-center">
+            <input type="text" value="<%= shared_results_quiz_url(@quiz, score: @score, user_answers: @user_answers) %>" class="flex-grow px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" readonly>
+            <button onclick="copyToClipboard()" class="ml-2 px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Copy URL
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-8 flex space-x-4">
+          <%= link_to "Back to Results", results_quiz_path(@quiz, score: @score, user_answers: @user_answers), class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          <%= link_to "Back to Quizzes", quizzes_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyToClipboard() {
+    var copyText = document.querySelector('input[type="text"]');
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the URL: " + copyText.value);
+  }
+</script>

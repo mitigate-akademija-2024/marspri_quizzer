@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy ]
+  before_action :set_quiz, only: %i[ show edit update destroy take submit results ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -28,6 +28,8 @@ class QuizzesController < ApplicationController
   # GET /quizzes/new
   def new
     @quiz = Quiz.new
+    question = @quiz.questions.build
+    2.times { question.answers.build }
   end
 
   # GET /quizzes/1/edit
@@ -39,13 +41,14 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.new(quiz_params)
 
     respond_to do |format|
-      if @quiz.save
+      if @quiz.save && @quiz.questions.size >= 2
         format.html do
           flash.notice = "Quiz was successfully created this time."
           redirect_to quiz_url(@quiz)
         end
         format.json { render :show, status: :created, location: @quiz }
       else
+        @quiz.errors.add(:base, "A quiz must have at least two questions") if @quiz.questions.size < 2
         flash.now.alert = 'Something went wrong'
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @quiz.errors, status: :unprocessable_entity }
@@ -76,6 +79,67 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def take
+    if @quiz.has_questions?
+      @questions = @quiz.questions.includes(:answers)
+    else
+      redirect_to quizzes_path, alert: "This quiz doesn't have any questions yet."
+    end
+  end
+
+  def submit
+    @questions = @quiz.questions.includes(:answers)
+    
+    if params[:answers].nil?
+      flash[:alert] = "Please answer at least one question before submitting."
+      redirect_to take_quiz_path(@quiz) and return
+    end
+
+    @unanswered = params[:answers].values.count(&:blank?)
+
+    if @unanswered > 0
+      flash[:alert] = "Please answer all questions before submitting."
+      redirect_to take_quiz_path(@quiz) and return
+    end
+
+    @user_answers = params.require(:answers).permit!.to_h
+    @score = calculate_score(@questions, @user_answers)
+    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers)
+  end
+
+  def calculate_score(questions, user_answers)
+    correct_answers = 0
+    questions.each do |question|
+      if user_answers[question.id.to_s] == question.answers.find_by(correct: true).id.to_s
+        correct_answers += 1
+      end
+    end
+    (correct_answers.to_f / questions.count * 100).round(2)
+  end
+
+  def results
+    @questions = @quiz.questions.includes(:answers)
+    @score = params[:score]
+    @user_answers = params[:user_answers].permit!.to_h if params[:user_answers].present?
+  end
+
+  def share_results
+    @quiz = Quiz.find(params[:id])
+    @questions = @quiz.questions.includes(:answers)
+    @score = params[:score]
+    @user_answers = JSON.parse(params[:user_answers]) if params[:user_answers].present?
+    @shareable_url = shared_results_quiz_url(@quiz, score: @score, user_answers: @user_answers)
+    render :share_results
+  end
+
+  def shared_results
+    @quiz = Quiz.find(params[:id])
+    @questions = @quiz.questions.includes(:answers)
+    @score = params[:score]
+    @user_answers = params[:user_answers].to_unsafe_h if params[:user_answers].present?
+    render :shared_results
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
@@ -84,6 +148,6 @@ class QuizzesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def quiz_params
-      params.require(:quiz).permit(:title, :description)
+      params.require(:quiz).permit(:title, :description, questions_attributes: [:question_text, answers_attributes: [:answer_text, :correct]])
     end
 end

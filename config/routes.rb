@@ -5,10 +5,17 @@ Rails.application.routes.draw do
   get "/start_quiz", to: "quizzes#start"
 
   resources :quizzes do 
-    resources :questions, shallow: true
+    resources :questions, shallow: true do
+      resources :answers, shallow: true
+    end
 
     get 'continue', on: :member
     get 'completed', on: :collection
+    get 'take', on: :member
+    post 'submit', on: :member
+    get 'results', on: :member
+    get 'share_results', on: :member
+    get 'shared_results', on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -6,12 +6,20 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :answers, allow_destroy: :true, reject_if: proc { |attributes| attributes['answer_text'].blank? }
 
-  # validate :validate_answers
+  validate :at_least_two_answers
+  validate :has_correct_answer
 
-  # private
+  private
 
-  # def validate_answers
-  #   errors.add(:answers, :too_few, message: "At least 2 answers needed.") if answers.count 
-  #   errors.add(:answers, :no_correct, message: "At least 1 correct answer needed.") if answers.none? {|ans| ans.correct?}
-  # end
+  def at_least_two_answers
+    if answers.reject(&:marked_for_destruction?).size < 2
+      errors.add(:base, "A question must have at least two answers")
+    end
+  end
+
+  def has_correct_answer
+    unless answers.any? { |answer| answer.correct? && !answer.marked_for_destruction? }
+      errors.add(:base, "A question must have at least one correct answer")
+    end
+  end
 end

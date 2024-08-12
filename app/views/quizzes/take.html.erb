@@ -1,0 +1,55 @@
+<div class="container mx-auto mt-8 px-4">
+  <h1 class="text-3xl font-bold mb-4"><%= @quiz.title %></h1>
+  <p class="mb-6 text-gray-600"><%= @quiz.description %></p>
+
+  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full text-center text-xs text-white" style="width: 0%">0%</div>
+  </div>
+
+  <%= form_with(url: submit_quiz_path(@quiz), method: :post, local: true, id: 'quiz-form', class: 'space-y-6') do |form| %>
+    <% @questions.each_with_index do |question, index| %>
+      <div class="bg-white shadow-md rounded-lg p-6 question" data-question-id="<%= question.id %>">
+        <h3 class="text-xl font-semibold mb-4">Question <%= index + 1 %> of <%= @questions.count %></h3>
+        <p class="mb-4 text-gray-700"><%= question.question_text %></p>
+        <div class="space-y-2">
+          <% question.answers.each do |answer| %>
+            <div class="flex items-center">
+              <%= form.radio_button "answers[#{question.id}]", answer.id, id: "answer_#{answer.id}", class: 'form-radio h-4 w-4 text-blue-600' %>
+              <%= form.label "answers[#{question.id}]_#{answer.id}", answer.answer_text, class: 'ml-2 text-gray-700' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= form.submit "Submit Quiz", class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded', data: { turbo: false } %>
+  <% end %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('quiz-form');
+  const progressBar = document.getElementById('progress-bar');
+  const questions = document.querySelectorAll('.question');
+  const totalQuestions = questions.length;
+
+  form.addEventListener('change', function() {
+    const answeredQuestions = form.querySelectorAll('input[type="radio"]:checked').length;
+    const progress = (answeredQuestions / totalQuestions) * 100;
+    progressBar.style.width = progress + '%';
+    progressBar.textContent = Math.round(progress) + '%';
+  });
+
+  form.addEventListener('submit', function(event) {
+    const unansweredQuestions = Array.from(questions).filter(question => 
+      !question.querySelector('input[type="radio"]:checked')
+    );
+
+    if (unansweredQuestions.length > 0) {
+      event.preventDefault();
+      alert('Please answer all questions before submitting the quiz.');
+      unansweredQuestions[0].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>

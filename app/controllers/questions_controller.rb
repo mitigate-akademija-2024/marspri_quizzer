@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
-  before_action :set_quiz, only: [:new, :create]
+  before_action :set_quiz, only: [:index, :new, :create]
   before_action :set_question, only: [:destroy, :edit, :update]
 
   def index
+    @questions = @quiz.questions
   end
   def create
     @question = @quiz.questions.new(question_params)
@@ -14,6 +15,9 @@ class QuestionsController < ApplicationController
         flash.notice = "Question was successfully created."
         redirect_to quiz_url(@quiz)
       else
+        if @question.answers.size < 2
+          @question.answers.new while @question.answers.size < 2
+        end
         render :new, status: :unprocessable_entity
       end
     end
@@ -21,7 +25,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = @quiz.questions.new
-    @question.answers.new
+    2.times { @question.answers.new }
   end
 
   def add_answer

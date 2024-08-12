@@ -1,14 +1,13 @@
-<div class="bg-gray-100 min-h-screen py-12">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+<div class="bg-gradient-to-r from-blue-100 to-indigo-100 min-h-screen py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow-2xl rounded-lg overflow-hidden">
       <div class="p-6 sm:p-10">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Editing Question</h1>
+        <h1 class="text-4xl font-bold text-indigo-800 mb-8">Editing Question</h1>
 
         <%= render "form", question: @question %>
 
         <div class="mt-8 flex justify-between items-center">
-          <%= link_to "Show this question", @question, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-          <%= link_to "Back to quiz", quiz_path(@question.quiz), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          <%= link_to "Back to quiz", quiz_path(@question.quiz), class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out" %>
         </div>
       </div>
     </div>

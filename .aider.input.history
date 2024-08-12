@@ -1663,3 +1663,12 @@
 
 # 2024-08-12 09:36:44.273023
 +Update the styling of the "/quizzes" page to give it a more contemporary look. Ensure the buttons have a uniform design across the page. Implement Tailwind CSS for styling. Maintain all existing functionality of the page without altering its core features or purpose.
+
+# 2024-08-12 09:41:42.258289
++Format the buttons in /quizzes page to be uniformal to the others in the web apliction, use tailwind, use diferesnt colors for the buttons if nececary
+
+# 2024-08-12 09:45:02.254580
++format also the create new quiz button the same as the view button
+
+# 2024-08-12 09:46:32.911234
++format the /quizzes/id and /quizzes/id/take pages to be uniform with all other pages, example: /quizzes

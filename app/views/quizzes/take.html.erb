@@ -1,33 +1,39 @@
-<div class="container mx-auto mt-8 px-4">
-  <h1 class="text-3xl font-bold mb-4"><%= @quiz.title %></h1>
-  <p class="mb-6 text-gray-600"><%= @quiz.description %></p>
+<div class="bg-gradient-to-r from-blue-100 to-indigo-100 min-h-screen py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow-2xl rounded-lg overflow-hidden">
+      <div class="p-6 sm:p-10">
+        <h1 class="text-4xl font-bold text-indigo-800 mb-4"><%= @quiz.title %></h1>
+        <p class="text-xl text-indigo-600 mb-8"><%= @quiz.description %></p>
 
-  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full text-center text-xs text-white" style="width: 0%">0%</div>
-  </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+          <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full text-center text-xs text-white" style="width: 0%">0%</div>
+        </div>
 
-  <%= form_with(url: submit_quiz_path(@quiz), method: :post, local: true, id: 'quiz-form', class: 'space-y-6') do |form| %>
-    <div class="mb-4">
-      <%= form.label :user_name, "Your Name", class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :user_name, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", required: true %>
-    </div>
-    <% @questions.each_with_index do |question, index| %>
-      <div class="bg-white shadow-md rounded-lg p-6 question" data-question-id="<%= question.id %>">
-        <h3 class="text-xl font-semibold mb-4">Question <%= index + 1 %> of <%= @questions.count %></h3>
-        <p class="mb-4 text-gray-700"><%= question.question_text %></p>
-        <div class="space-y-2">
-          <% question.answers.each do |answer| %>
-            <div class="flex items-center">
-              <%= form.radio_button "answers[#{question.id}]", answer.id, id: "answer_#{answer.id}", class: 'form-radio h-4 w-4 text-blue-600' %>
-              <%= form.label "answers[#{question.id}]_#{answer.id}", answer.answer_text, class: 'ml-2 text-gray-700' %>
+        <%= form_with(url: submit_quiz_path(@quiz), method: :post, local: true, id: 'quiz-form', class: 'space-y-6') do |form| %>
+          <div class="mb-4">
+            <%= form.label :user_name, "Your Name", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_field :user_name, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", required: true %>
+          </div>
+          <% @questions.each_with_index do |question, index| %>
+            <div class="bg-indigo-50 shadow-md rounded-lg p-6 question" data-question-id="<%= question.id %>">
+              <h3 class="text-xl font-semibold mb-4 text-indigo-800">Question <%= index + 1 %> of <%= @questions.count %></h3>
+              <p class="mb-4 text-indigo-700"><%= question.question_text %></p>
+              <div class="space-y-2">
+                <% question.answers.each do |answer| %>
+                  <div class="flex items-center">
+                    <%= form.radio_button "answers[#{question.id}]", answer.id, id: "answer_#{answer.id}", class: 'form-radio h-4 w-4 text-indigo-600' %>
+                    <%= form.label "answers[#{question.id}]_#{answer.id}", answer.answer_text, class: 'ml-2 text-indigo-700' %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           <% end %>
-        </div>
-      </div>
-    <% end %>
 
-    <%= form.submit "Submit Quiz", class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded', data: { turbo: false } %>
-  <% end %>
+          <%= form.submit "Submit Quiz", class: 'w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500', data: { turbo: false } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>

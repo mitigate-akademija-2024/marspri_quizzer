@@ -1,5 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores ]
+  before_action :authorize_quiz, only: %i[ edit update destroy ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -38,7 +39,7 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes or /quizzes.json
   def create
-    @quiz = Quiz.new(quiz_params)
+    @quiz = current_user.created_quizzes.new(quiz_params)
 
     respond_to do |format|
       if @quiz.save && @quiz.questions.size >= 2
@@ -80,6 +81,11 @@ class QuizzesController < ApplicationController
   end
 
   def take
+    unless current_user
+      redirect_to login_path(redirect_to: take_quiz_path(@quiz)), alert: "Please log in to take the quiz."
+      return
+    end
+
     if @quiz.has_questions?
       @questions = @quiz.questions.includes(:answers)
     else
@@ -105,15 +111,14 @@ class QuizzesController < ApplicationController
     @user_answers = params.require(:answers).permit!.to_h
     @score = calculate_score(@questions, @user_answers)
     
-    if params[:user_name].blank?
-      flash[:alert] = "Please enter your name before submitting."
-      redirect_to take_quiz_path(@quiz, answers: @user_answers) and return
+    unless current_user
+      flash[:alert] = "Please log in before submitting your answers."
+      redirect_to login_path(redirect_to: take_quiz_path(@quiz)) and return
     end
 
-    user = User.find_or_create_by(name: params[:user_name])
-    Result.create(quiz: @quiz, user: user, score: @score)
+    Result.create(quiz: @quiz, user: current_user, score: @score, user_answers: @user_answers)
 
-    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers, user_name: params[:user_name])
+    redirect_to results_quiz_path(@quiz, score: @score, user_answers: @user_answers)
   end
 
   def calculate_score(questions, user_answers)
@@ -129,7 +134,15 @@ class QuizzesController < ApplicationController
   def results
     @questions = @quiz.questions.includes(:answers)
     @score = params[:score]
-    @user_answers = params[:user_answers].permit!.to_h if params[:user_answers].present?
+    @user_answers = if params[:user_answers].present?
+      begin
+        JSON.parse(params[:user_answers])
+      rescue JSON::ParserError
+        {}
+      end
+    else
+      {}
+    end
   end
 
   def share_results
@@ -162,5 +175,12 @@ class QuizzesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def quiz_params
       params.require(:quiz).permit(:title, :description, questions_attributes: [:question_text, answers_attributes: [:answer_text, :correct]])
+    end
+
+    def authorize_quiz
+      unless @quiz.creator == current_user
+        flash[:alert] = "You are not authorized to perform this action."
+        redirect_to quizzes_path
+      end
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_12_100000) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_12_134604) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id"
     t.string "answer_text", null: false
@@ -33,6 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_100000) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "creator_id"
+    t.index ["creator_id"], name: "index_quizzes_on_creator_id"
   end
 
   create_table "results", force: :cascade do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_100000) do
     t.float "score", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "user_answers"
     t.index ["quiz_id"], name: "index_results_on_quiz_id"
     t.index ["user_id"], name: "index_results_on_user_id"
   end
@@ -49,10 +52,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_100000) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "username"
+    t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "users", column: "creator_id"
   add_foreign_key "results", "quizzes"
   add_foreign_key "results", "users"
 end

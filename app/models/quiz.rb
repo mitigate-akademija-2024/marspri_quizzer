@@ -8,6 +8,8 @@ class Quiz < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :results, dependent: :destroy
+  has_many :users, through: :results
+  belongs_to :creator, class_name: 'User'
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: :all_blank
 
   def unanswered_questions?(answers)

@@ -25,6 +25,7 @@ class User < ApplicationRecord
   end
 
   def ensure_password_digest
+    # binding.pry
     if password.present? && password_digest.nil?
       self.password_digest = BCrypt::Password.create(password)
     end

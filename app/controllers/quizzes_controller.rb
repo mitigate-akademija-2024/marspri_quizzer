@@ -140,7 +140,7 @@ class QuizzesController < ApplicationController
   def results
     @questions = @quiz.questions.includes(:answers)
     @score = params[:score]
-    @user_answers = params[:user_answers].is_a?(String) ? JSON.parse(params[:user_answers]) : params[:user_answers].to_h
+    @user_answers = params[:user_answers].is_a?(String) ? JSON.parse(params[:user_answers]) : params[:user_answers].to_unsafe_h
   end
 
   def share_results

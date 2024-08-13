@@ -10,8 +10,15 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="container mx-auto p-4">
-    <%= render 'layouts/notice' %>
-    <%= yield %>
+  <body class="bg-gray-100 overflow-x-hidden">
+    <%= render 'shared/header' %>
+    <div class="container mx-auto p-4 mt-16">
+      <% flash.each do |type, message| %>
+        <div class="<%= type == 'notice' ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700' %> border px-4 py-3 rounded relative mb-4" role="alert">
+          <span class="block sm:inline"><%= message %></span>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

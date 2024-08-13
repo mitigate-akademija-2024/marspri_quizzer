@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores ]
   before_action :authorize_quiz, only: %i[ edit update destroy ]
+  before_action :require_login, only: [:show]
 
   # GET /quizzes or /quizzes.json
   def index

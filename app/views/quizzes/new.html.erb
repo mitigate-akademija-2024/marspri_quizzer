@@ -13,51 +13,56 @@
     </div>
   </div>
 </div>
-<div class="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg overflow-hidden">
-  <div class="px-6 py-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Create a New Quiz</h1>
+<div class="bg-gradient-to-r from-blue-100 to-indigo-100 min-h-screen py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow-2xl rounded-lg overflow-hidden">
+      <div class="p-6 sm:p-10">
+        <h1 class="text-4xl font-bold text-indigo-800 mb-8">Create New Quiz</h1>
 
-    <%= form_with(model: @quiz, local: true, class: "space-y-6", data: { controller: "quiz-form" }) do |f| %>
-      <% if @quiz.errors.any? %>
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
-          <p class="font-bold">Please correct the following errors:</p>
-          <ul>
-            <% @quiz.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+        <%= form_with(model: @quiz, local: true, class: "space-y-6", data: { controller: "nested-form", nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
+          <% if @quiz.errors.any? %>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+              <p class="font-bold">Please correct the following errors:</p>
+              <ul>
+                <% @quiz.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div>
+            <%= f.label :title, class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_field :title, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
+          </div>
+
+          <div>
+            <%= f.label :description, class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_area :description, rows: 4, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
+          </div>
+
+          <div id="questions">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions</h2>
+            <template data-nested-form-target="template">
+              <%= f.fields_for :questions, Question.new, child_index: 'NEW_RECORD' do |question_form| %>
+                <%= render 'question_fields', form: question_form %>
+              <% end %>
+            </template>
+            <%= f.fields_for :questions do |question_form| %>
+              <%= render 'question_fields', form: question_form %>
             <% end %>
-          </ul>
-        </div>
-      <% end %>
+            <%= f.button 'Add Question', type: 'button', data: { action: "nested-form#add" }, class: "mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300" %>
+          </div>
 
-      <div>
-        <%= f.label :title, class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :title, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
-      </div>
-
-      <div>
-        <%= f.label :description, class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_area :description, rows: 4, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
-      </div>
-
-      <div id="questions">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions</h2>
-        <%= f.fields_for :questions do |question_form| %>
-          <%= render 'question_fields', form: question_form %>
+          <div class="mt-8">
+            <%= f.submit "Create Quiz", class: "w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300" %>
+          </div>
         <% end %>
-        <%= f.button 'Add Question', type: 'button', id: 'add-question', class: "inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300" %>
-      </div>
 
-      <div class="mt-8">
-        <%= f.submit "Create Quiz", class: "w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300" %>
+        <div class="mt-8">
+          <%= link_to "Back to quizzes", quizzes_path, class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out" %>
+        </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
-
-<script type="text/template" id="question-template">
-  <%= form.fields_for :questions, Question.new, child_index: 'NEW_RECORD' do |question_form| %>
-    <%= render 'question_fields', form: question_form %>
-  <% end %>
-</script>
-
-<%= javascript_pack_tag 'application' %>

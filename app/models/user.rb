@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+  validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
 
   before_save :downcase_email_and_username
 
@@ -16,5 +16,9 @@ class User < ApplicationRecord
   def downcase_email_and_username
     self.email = email.downcase
     self.username = username.downcase
+  end
+
+  def password_required?
+    new_record? || password.present?
   end
 end

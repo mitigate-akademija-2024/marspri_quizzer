@@ -25,6 +25,8 @@ class User < ApplicationRecord
   end
 
   def password_digest_present
-    errors.add(:password, "can't be blank") if password_digest.blank?
+    if password_digest.blank? && password.blank?
+      errors.add(:password, "can't be blank")
+    end
   end
 end

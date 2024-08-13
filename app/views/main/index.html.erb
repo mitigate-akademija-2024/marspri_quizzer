@@ -8,7 +8,11 @@
       <%= link_to "Create a Quiz", new_quiz_path, class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
       <%= link_to "Take a Quiz", available_quizzes_path, class: "bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center" %>
       <%= link_to "View Your Quizzes", quizzes_path, class: "bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center" %>
-      <%= link_to "View Your Results", user_profile_path, class: "bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700 text-center" %>
+      <% if current_user %>
+        <%= link_to "View Your Results", user_profile_path, class: "bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700 text-center" %>
+      <% else %>
+        <%= link_to "View Your Results", login_path(redirect_to: user_profile_path), class: "bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700 text-center" %>
+      <% end %>
     </div>
   </div>
 </div>

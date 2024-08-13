@@ -10,8 +10,7 @@ class UsersController < ApplicationController
       redirect_to root_path, notice: "Successfully registered!"
     else
       Rails.logger.debug "User creation failed: #{@user.errors.full_messages}"
-      Rails.logger.debug "User attributes: #{@user.attributes.inspect}"
-      Rails.logger.debug "Password: #{user_params[:password]}, Password Confirmation: #{user_params[:password_confirmation]}"
+      Rails.logger.debug "User attributes: #{@user.attributes.except('password', 'password_confirmation').inspect}"
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end

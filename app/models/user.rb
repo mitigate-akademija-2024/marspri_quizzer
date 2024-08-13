@@ -9,7 +9,6 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
   validates :password_confirmation, presence: true, if: :password_required?
-  validate :password_digest_present
 
   before_save :downcase_email_and_username
 
@@ -22,11 +21,5 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
-  end
-
-  def password_digest_present
-    if password_digest.blank? && password.blank?
-      errors.add(:password, "can't be blank")
-    end
   end
 end

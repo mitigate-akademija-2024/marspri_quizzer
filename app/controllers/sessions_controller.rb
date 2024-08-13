@@ -10,7 +10,11 @@ class SessionsController < ApplicationController
     Rails.logger.debug "User found: #{user.inspect}"
     
     if user
-      if user.authenticate(params[:password])
+      if user.password_digest.nil?
+        Rails.logger.debug "Authentication failed: Password digest is nil"
+        flash.now[:alert] = "Your account needs to be updated. Please contact support."
+        render :new, status: :unprocessable_entity
+      elsif user.authenticate(params[:password])
         Rails.logger.debug "Authentication successful"
         session[:user_id] = user.id
         redirect_to params[:redirect_to] || root_path, notice: "Logged in successfully!"

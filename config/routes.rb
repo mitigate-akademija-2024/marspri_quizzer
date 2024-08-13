@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-
   root 'quizzes#index'
 
   get "/start_quiz", to: "quizzes#start"
 
+  resources :users, only: [:new, :create, :show]
+  get '/profile', to: 'users#show', as: 'user_profile'
+  get '/register', to: 'users#new', as: 'register'
+  get '/login', to: 'sessions#new', as: 'login'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  
   resources :quizzes do 
     resources :questions, shallow: true do
       resources :answers, shallow: true

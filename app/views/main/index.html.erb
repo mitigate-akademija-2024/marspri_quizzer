@@ -1,22 +1,44 @@
-<div class="max-w-4xl mx-auto mt-8">
-  <h1 class="text-3xl font-bold mb-6">Welcome to QuizzerApp</h1>
-  
-  <div class="bg-gradient-to-r from-blue-100 to-indigo-100 min-h-screen py-12">
-    <h2 class="text-2xl font-semibold mb-4">What would you like to do?</h2>
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-extrabold text-indigo-900 mb-8 text-center">Welcome to QuizzerApp</h1>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <% if current_user %>
-        <%= link_to "Create a Quiz", new_quiz_path, class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
-      <% else %>
-        <%= link_to "Create a Quiz", login_path(redirect_to: new_quiz_path, alert: "To create quiz please log in"), class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
-      <% end %>
-      <%= link_to "Take a Quiz", available_quizzes_path, class: "bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center" %>
-      <%= link_to "View Your Quizzes", quizzes_path, class: "bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center" %>
-      <% if current_user %>
-        <%= link_to "View Your Results", user_profile_path, class: "bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700 text-center" %>
-      <% else %>
-        <%= link_to "View Your Results", login_path(redirect_to: user_profile_path), class: "bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700 text-center" %>
-      <% end %>
+    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+      <div class="p-6 sm:p-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">What would you like to do?</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <% if current_user %>
+            <%= link_to "Create a Quiz", new_quiz_path, class: "btn-primary" %>
+          <% else %>
+            <%= link_to "Create a Quiz", login_path(redirect_to: new_quiz_path, alert: "To create quiz please log in"), class: "btn-primary" %>
+          <% end %>
+          <%= link_to "Take a Quiz", available_quizzes_path, class: "btn-secondary" %>
+          <%= link_to "View Your Quizzes", quizzes_path, class: "btn-tertiary" %>
+          <% if current_user %>
+            <%= link_to "View Your Results", user_profile_path, class: "btn-quaternary" %>
+          <% else %>
+            <%= link_to "View Your Results", login_path(redirect_to: user_profile_path), class: "btn-quaternary" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<style>
+  .btn-primary, .btn-secondary, .btn-tertiary, .btn-quaternary {
+    @apply w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white transition duration-150 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  .btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500;
+  }
+  .btn-secondary {
+    @apply bg-green-600 hover:bg-green-700 focus:ring-green-500;
+  }
+  .btn-tertiary {
+    @apply bg-blue-600 hover:bg-blue-700 focus:ring-blue-500;
+  }
+  .btn-quaternary {
+    @apply bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500;
+  }
+</style>

@@ -8,16 +8,37 @@
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <% if current_user %>
-            <%= link_to "Create a Quiz", new_quiz_path, class: "btn-primary" %>
+            <%= link_to new_quiz_path, class: "btn-modern btn-primary" do %>
+              <span class="icon">➕</span>
+              <span>Create a Quiz</span>
+            <% end %>
           <% else %>
-            <%= link_to "Create a Quiz", login_path(redirect_to: new_quiz_path, alert: "To create quiz please log in"), class: "btn-primary" %>
+            <%= link_to login_path(redirect_to: new_quiz_path, alert: "To create quiz please log in"), class: "btn-modern btn-primary" do %>
+              <span class="icon">➕</span>
+              <span>Create a Quiz</span>
+            <% end %>
           <% end %>
-          <%= link_to "Take a Quiz", available_quizzes_path, class: "btn-secondary" %>
-          <%= link_to "View Your Quizzes", quizzes_path, class: "btn-tertiary" %>
+          
+          <%= link_to available_quizzes_path, class: "btn-modern btn-secondary" do %>
+            <span class="icon">📝</span>
+            <span>Take a Quiz</span>
+          <% end %>
+          
+          <%= link_to quizzes_path, class: "btn-modern btn-tertiary" do %>
+            <span class="icon">📚</span>
+            <span>View Your Quizzes</span>
+          <% end %>
+          
           <% if current_user %>
-            <%= link_to "View Your Results", user_profile_path, class: "btn-quaternary" %>
+            <%= link_to user_profile_path, class: "btn-modern btn-quaternary" do %>
+              <span class="icon">📊</span>
+              <span>View Your Results</span>
+            <% end %>
           <% else %>
-            <%= link_to "View Your Results", login_path(redirect_to: user_profile_path), class: "btn-quaternary" %>
+            <%= link_to login_path(redirect_to: user_profile_path), class: "btn-modern btn-quaternary" do %>
+              <span class="icon">📊</span>
+              <span>View Your Results</span>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -26,19 +47,22 @@
 </div>
 
 <style>
-  .btn-primary, .btn-secondary, .btn-tertiary, .btn-quaternary {
-    @apply w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white transition duration-150 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  .btn-modern {
+    @apply w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  .btn-modern .icon {
+    @apply mr-2 text-lg;
   }
   .btn-primary {
-    @apply bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500;
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 focus:ring-indigo-500;
   }
   .btn-secondary {
-    @apply bg-green-600 hover:bg-green-700 focus:ring-green-500;
+    @apply bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:ring-green-500;
   }
   .btn-tertiary {
-    @apply bg-blue-600 hover:bg-blue-700 focus:ring-blue-500;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-blue-500;
   }
   .btn-quaternary {
-    @apply bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500;
+    @apply bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 focus:ring-yellow-500;
   }
 </style>

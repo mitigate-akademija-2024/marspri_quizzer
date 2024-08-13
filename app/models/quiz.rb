@@ -1,5 +1,7 @@
 class Quiz < ApplicationRecord
+  belongs_to :creator, class_name: 'User'
   validates :title, presence: true, uniqueness: true
+  validates :creator, presence: true
   validate :at_least_two_questions
 
   before_validation :normalize_title

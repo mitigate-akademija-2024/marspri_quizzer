@@ -2666,3 +2666,45 @@
 
 # 2024-08-13 12:52:43.152180
 +after a succesfull log in the user should be directed to a main page that now in the header displays the username of the user that is loged in, a  profile button and log out button
+
+# 2024-08-13 12:58:13.175187
++in the main page when logged in the button take quiz should direct to a page that shows all avalibe quizzes
+
+# 2024-08-13 13:03:48.695834
++/ask where is the view for the profile page located?
+
+# 2024-08-13 13:04:36.374503
++/ask where is the formatting for the profile page located
+
+# 2024-08-13 13:07:37.739013
++As a user, I only want to be able to edit and delete quizzes that I have created myself. If the quiz was not created by the currently logged in user do not offer the view button and if no user has logged in dont offer the view button
+
+# 2024-08-13 13:08:49.654575
++/undo
+
+# 2024-08-13 13:09:47.792616
++if no user has logged in they should not be able to acces the /quizzes/id page 
+
+# 2024-08-13 13:10:34.617956
++a user has to be logged in to create quizzes
+
+# 2024-08-13 13:11:05.974103
++/undo
+
+# 2024-08-13 13:12:27.690060
++if no user has logged in the view your results button should redirect to the log in page with a message to view your results log in
+
+# 2024-08-13 13:13:01.568685
++/undo
+
+# 2024-08-13 13:14:03.213919
++if no user has logged in the view your results button should redirect to the log in page with a message to view your results log in. Implament these changes but dont change anything else
+
+# 2024-08-13 13:14:50.844851
++/undo
+
+# 2024-08-13 13:15:17.385800
++if no user has logged in the view your results button should redirect to the log in page with a message to view your results log in. Implament these changes but dont remove any of the other buttons
+
+# 2024-08-13 13:17:22.941271
++if no user has logged in the create quiz button should redirect to the log in page with an alert "To create quiz please log `app/views/questions/index.html.erb`". Implament these changes but dont remove any of the other buttons

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     else
       Rails.logger.debug "User creation failed: #{@user.errors.full_messages}"
       Rails.logger.debug "User attributes: #{@user.attributes.inspect}"
+      Rails.logger.debug "Password: #{user_params[:password]}, Password Confirmation: #{user_params[:password_confirmation]}"
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end

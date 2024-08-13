@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'quizzes#index'
+  root 'main#index'
 
+  get "/main", to: "main#index", as: "main"
   get "/start_quiz", to: "quizzes#start"
 
   resources :users, only: [:new, :create, :show]

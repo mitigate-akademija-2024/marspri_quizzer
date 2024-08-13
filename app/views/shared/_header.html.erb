@@ -4,6 +4,8 @@
     
     <div class="flex items-center">
       <% if current_user %>
+        <span class="text-white mr-4">Welcome, <%= current_user.username %></span>
+        <%= link_to "Profile", user_profile_path, class: "text-white hover:text-indigo-200 mr-4" %>
         <%= button_to "Logout", logout_path, method: :delete, class: "text-white hover:text-indigo-200" %>
       <% else %>
         <%= link_to "Register", register_path, class: "text-white hover:text-indigo-200 mr-4" %>

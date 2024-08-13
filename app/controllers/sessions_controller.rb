@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       elsif user.authenticate(params[:password])
         Rails.logger.debug "Authentication successful"
         session[:user_id] = user.id
-        redirect_to params[:redirect_to] || root_path, notice: "Logged in successfully!"
+        redirect_to main_path, notice: "Logged in successfully!"
       else
         Rails.logger.debug "Authentication failed: Password mismatch"
         flash.now[:alert] = "Invalid username/email or password"

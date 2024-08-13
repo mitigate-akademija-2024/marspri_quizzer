@@ -15,7 +15,7 @@
     </div>
 
     <template data-nested-form-target="template">
-      <%= f.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_form| %>
+      <%= form.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_form| %>
         <%= render "answer_fields", form: answer_form %>
       <% end %>
     </template>

@@ -26,27 +26,38 @@
       <div class="p-6 sm:p-10">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">Quiz Results</h2>
         <% if @user.results.any? %>
-          <ul class="divide-y divide-gray-200">
+          <div class="grid gap-6 md:grid-cols-2">
             <% @user.results.includes(:quiz).each do |result| %>
-              <li class="py-4">
-                <div class="flex items-center space-x-4">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-gray-900 truncate">
-                      <%= result.quiz.title %>
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      Score: <%= result.score %>%
-                    </p>
+              <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 shadow-md transition-transform duration-300 hover:scale-105">
+                <h3 class="text-lg font-semibold text-indigo-800 mb-2"><%= result.quiz.title %></h3>
+                <div class="flex items-center mb-4">
+                  <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                    <span class="text-2xl font-bold text-indigo-600"><%= result.score %>%</span>
                   </div>
                   <div>
-                    <%= link_to "View Results", results_quiz_path(result.quiz, score: result.score, user_answers: result.user_answers, from_profile: true), class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                    <p class="text-sm text-gray-600">Completed on:</p>
+                    <p class="text-sm font-medium text-gray-800"><%= result.created_at.strftime("%B %d, %Y") %></p>
                   </div>
                 </div>
-              </li>
+                <%= link_to "View Detailed Results", results_quiz_path(result.quiz, score: result.score, user_answers: result.user_answers, from_profile: true), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300" %>
+              </div>
             <% end %>
-          </ul>
+          </div>
         <% else %>
-          <p class="text-gray-500">No quiz results yet.</p>
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-blue-700">
+                  No quiz results yet. Start taking quizzes to see your results here!
+                </p>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>

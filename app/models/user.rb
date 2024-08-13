@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: :password_required?
 
   before_save :downcase_email_and_username
+  before_save :ensure_password_digest
 
   private
 
@@ -21,5 +22,11 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
+  end
+
+  def ensure_password_digest
+    if password.present? && password_digest.nil?
+      self.password_digest = BCrypt::Password.create(password)
+    end
   end
 end

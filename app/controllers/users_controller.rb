@@ -5,7 +5,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    Rails.logger.debug "User before save: #{@user.attributes.except('password', 'password_confirmation').inspect}"
     if @user.save
+      Rails.logger.debug "User after save: #{@user.reload.attributes.except('password', 'password_confirmation').inspect}"
       session[:user_id] = @user.id
       redirect_to root_path, notice: "Successfully registered!"
     else

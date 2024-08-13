@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   
-  resources :quizzes do 
+  resources :quizzes do
+    get 'available', on: :collection
     resources :questions, shallow: true do
       resources :answers, shallow: true
     end

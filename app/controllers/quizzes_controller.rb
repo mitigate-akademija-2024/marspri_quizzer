@@ -4,6 +4,11 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes or /quizzes.json
   def index
+    @quizzes = Quiz.where(creator: current_user)
+  end
+
+  def available
+    @quizzes = Quiz.where.not(creator: current_user)
     @quizzes = Quiz.all
 
     @title = 'These are the quizzes'

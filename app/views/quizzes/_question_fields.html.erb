@@ -1,8 +1,8 @@
 <div class="nested-form-wrapper question-fields bg-gray-50 p-4 rounded-md mb-4">
-  <%= form.hidden_field :_destroy %>
+  <%= f.hidden_field :_destroy %>
   <div class="mb-3">
-    <%= form.label :question_text, "Question", class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_field :question_text, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+    <%= f.label :question_text, "Question", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :question_text, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
   </div>
 
   <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">

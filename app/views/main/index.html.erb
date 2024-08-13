@@ -5,7 +5,11 @@
     <h2 class="text-2xl font-semibold mb-4">What would you like to do?</h2>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <%= link_to "Create a Quiz", new_quiz_path, class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
+      <% if current_user %>
+        <%= link_to "Create a Quiz", new_quiz_path, class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
+      <% else %>
+        <%= link_to "Create a Quiz", login_path(redirect_to: new_quiz_path, alert: "To create quiz please log in"), class: "bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 text-center" %>
+      <% end %>
       <%= link_to "Take a Quiz", available_quizzes_path, class: "bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center" %>
       <%= link_to "View Your Quizzes", quizzes_path, class: "bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center" %>
       <% if current_user %>

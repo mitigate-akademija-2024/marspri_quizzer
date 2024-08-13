@@ -8,7 +8,7 @@
   <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
     <div class="answers space-y-2">
       <h4 class="text-sm font-medium text-gray-700">Answers</h4>
-      <%= f.fields_for :answers do |answer_form| %>
+      <%= form.fields_for :answers do |answer_form| %>
         <%= render "answer_fields", form: answer_form %>
       <% end %>
       <div data-nested-form-target="target"></div>

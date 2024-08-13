@@ -42,7 +42,7 @@
       <div id="questions">
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions</h2>
         <%= f.fields_for :questions do |question_form| %>
-          <%= render 'question_fields', f: question_form %>
+          <%= render 'question_fields', form: question_form %>
         <% end %>
         <%= link_to_add_association 'Add Question', f, :questions, 
             class: "inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300",

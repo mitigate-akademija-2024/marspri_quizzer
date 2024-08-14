@@ -10,6 +10,11 @@ class QuizzesController < ApplicationController
 
   def available
     @quizzes = Quiz.where.not(creator: current_user)
+    
+    if params[:search].present?
+      search_term = "%#{params[:search]}%"
+      @quizzes = @quizzes.where("title LIKE ? OR description LIKE ?", search_term, search_term)
+    end
   end
 
   def start

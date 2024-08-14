@@ -9,7 +9,7 @@ class QuizzesController < ApplicationController
   end
 
   def available
-    @quizzes = Quiz.where.not(creator: current_user)
+    @quizzes = Quiz.all
     
     if params[:search].present?
       search_term = "%#{params[:search]}%"

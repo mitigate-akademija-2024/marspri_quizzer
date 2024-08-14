@@ -3,6 +3,9 @@
     <%= link_to "QuizzerApp", root_path, class: "text-white text-2xl font-bold" %>
     
     <div class="flex items-center">
+      <% unless current_page?(root_path) %>
+        <%= link_to "Home", root_path, class: "text-white hover:text-indigo-200 mr-4" %>
+      <% end %>
       <% if current_user %>
         <span class="text-white mr-4">Welcome, <%= current_user.username %></span>
         <%= link_to "Profile", user_profile_path, class: "text-white hover:text-indigo-200 mr-4" %>

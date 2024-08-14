@@ -10,10 +10,6 @@ class QuizzesController < ApplicationController
 
   def available
     @quizzes = Quiz.where.not(creator: current_user)
-    @quizzes = Quiz.all
-
-    @title = 'These are the quizzes'
-    @description = 'lorem ipsum'
   end
 
   def start

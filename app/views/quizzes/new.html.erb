@@ -35,10 +35,12 @@
                 <%= render 'question_fields', form: question_form %>
               <% end %>
             </template>
-            <%= f.fields_for :questions do |question_form| %>
-              <%= render 'question_fields', form: question_form %>
-            <% end %>
-            <%= f.button 'Add Question', type: 'button', data: { action: "nested-form#add" }, class: "mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300" %>
+            <div data-nested-form-target="target">
+              <%= f.fields_for :questions do |question_form| %>
+                <%= render 'question_fields', form: question_form %>
+              <% end %>
+            </div>
+            <%= button_tag 'Add Question', type: 'button', data: { action: "click->nested-form#add" }, class: "mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300" %>
           </div>
 
           <div class="mt-8">

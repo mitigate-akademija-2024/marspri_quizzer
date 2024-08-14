@@ -4,5 +4,5 @@ class Result < ApplicationRecord
 
   validates :score, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :user_answers, presence: true
-  validates :feedback_type, inclusion: { in: ['positive', 'negative'] }, allow_nil: true
+  validates :feedback_type, inclusion: { in: ['positive', 'negative', 'neutral'] }, allow_nil: true
 end

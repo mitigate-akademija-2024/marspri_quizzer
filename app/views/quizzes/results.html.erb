@@ -43,6 +43,10 @@
                 <%= label_tag :feedback_type_positive, "Positive", class: "ml-2" %>
               </div>
               <div>
+                <%= radio_button_tag :feedback_type, 'neutral', false, class: "form-radio" %>
+                <%= label_tag :feedback_type_neutral, "Neutral", class: "ml-2" %>
+              </div>
+              <div>
                 <%= radio_button_tag :feedback_type, 'negative', false, class: "form-radio" %>
                 <%= label_tag :feedback_type_negative, "Negative", class: "ml-2" %>
               </div>

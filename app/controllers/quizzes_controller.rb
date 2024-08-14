@@ -215,6 +215,18 @@ class QuizzesController < ApplicationController
     @feedbacks = @quiz.results.where.not(feedback: nil).includes(:user).order(created_at: :desc)
   end
 
+  def destroy_feedback
+    @result = Result.find(params[:result_id])
+    @quiz = @result.quiz
+    if @result.user == current_user
+      @result.update(feedback: nil, feedback_type: nil)
+      flash[:notice] = "Feedback deleted successfully."
+    else
+      flash[:alert] = "You are not authorized to delete this feedback."
+    end
+    redirect_to feedbacks_quiz_path(@quiz)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz

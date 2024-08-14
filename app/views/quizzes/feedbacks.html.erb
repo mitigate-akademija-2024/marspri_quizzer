@@ -16,7 +16,15 @@
                 <div class="mt-2 text-sm text-indigo-600">
                   <span>Score: <%= result.score %>%</span>
                   <span class="ml-4">Type: <%= result.feedback_type ? result.feedback_type.capitalize : 'Unknown' %></span>
+                  <% if result.feedback_type == 'neutral' %>
+                    <span class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Neutral</span>
+                  <% end %>
                 </div>
+                <% if current_user == result.user %>
+                  <div class="mt-2">
+                    <%= button_to "Delete Feedback", destroy_feedback_quiz_path(@quiz, result_id: result.id), method: :delete, data: { confirm: "Are you sure you want to delete this feedback?" }, class: "text-red-600 hover:text-red-800" %>
+                  </div>
+                <% end %>
               </div>
             <% end %>
           </div>

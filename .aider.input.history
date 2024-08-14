@@ -3244,3 +3244,36 @@
 
 # 2024-08-14 09:36:00.921826
 +if the type of feedback was not marked show type unknown
+
+# 2024-08-14 09:38:27.651537
++add the option to delete a feedback only if the user that created the feedback is the user trying to deleate it
+
+# 2024-08-14 09:38:56.433197
++ActionController::UrlGenerationError in QuizzesController#destroy_feedback
++No route matches {:action=>"feedbacks", :controller=>"quizzes", :id=>nil}, missing required keys: [:id]
++Extracted source (around line #226):
++224
++225
++226
++227
++228
++229
++              
++      flash[:alert] = "You are not authorized to delete this feedback."
++    end
++    redirect_to feedbacks_quiz_path(@quiz)
++  end
++
++  private
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/controllers/quizzes_controller.rb:226:in `destroy_feedback'
++Request
++Parameters:
++
++{"_method"=>"delete", "authenticity_token"=>"[FILTERED]", "result_id"=>"23", "id"=>"1"}
+
+# 2024-08-14 09:41:01.851677
++add the option to mark the type of the feed back as neutral

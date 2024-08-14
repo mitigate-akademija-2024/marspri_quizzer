@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get 'top_scores', on: :member
     post 'submit_feedback', on: :member
     get 'feedbacks', on: :member
+    delete 'destroy_feedback', on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -73,12 +73,13 @@
           </script>
         </div>
 
-        <div class="mt-8 flex space-x-4">
+        <div class="mt-8 flex flex-wrap gap-4">
           <% if params[:from_profile] %>
             <%= link_to "Back to Profile", user_profile_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
           <% else %>
             <%= link_to "Back to Quizzes", available_quizzes_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
           <% end %>
+          <%= link_to "Retake Quiz", take_quiz_path(@quiz), class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500" %>
           <%= form_tag(share_results_quiz_path(@quiz), method: :get, class: "inline-block") do %>
             <%= hidden_field_tag :score, @score %>
             <%= hidden_field_tag :user_answers, @user_answers.to_json %>

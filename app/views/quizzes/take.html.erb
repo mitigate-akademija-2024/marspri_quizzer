@@ -10,10 +10,6 @@
         </div>
 
         <%= form_with(url: submit_quiz_path(@quiz), method: :post, local: true, id: 'quiz-form', class: 'space-y-6') do |form| %>
-          <div class="mb-4">
-            <%= form.label :user_name, "Your Name", class: "block text-sm font-medium text-gray-700" %>
-            <%= form.text_field :user_name, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", required: true %>
-          </div>
           <% @questions.each_with_index do |question, index| %>
             <div class="bg-indigo-50 shadow-md rounded-lg p-6 question" data-question-id="<%= question.id %>">
               <h3 class="text-xl font-semibold mb-4 text-indigo-800">Question <%= index + 1 %> of <%= @questions.count %></h3>

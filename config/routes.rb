@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show]
   get '/profile', to: 'users#show', as: 'user_profile'
   get '/register', to: 'users#new', as: 'register'
+  delete '/profile', to: 'users#destroy', as: 'delete_profile'
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: 'logout'

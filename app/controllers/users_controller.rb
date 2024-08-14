@@ -22,6 +22,17 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def destroy
+    @user = current_user
+    if @user.authenticate(params[:password])
+      @user.destroy
+      session[:user_id] = nil
+      redirect_to root_path, notice: "Your profile has been successfully deleted."
+    else
+      redirect_to user_profile_path, alert: "Incorrect password. Profile deletion failed."
+    end
+  end
+
   private
 
   def user_params

@@ -63,6 +63,33 @@
         <% end %>
       </div>
     </div>
+
+    <div class="bg-white shadow-xl rounded-lg overflow-hidden mt-8">
+      <div class="p-6 sm:p-10">
+        <h2 class="text-2xl font-semibold text-red-600 mb-6">Delete Profile</h2>
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md mb-6">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-red-700">
+                Warning: This action cannot be undone. All your data will be permanently deleted.
+              </p>
+            </div>
+          </div>
+        </div>
+        <%= form_with(url: delete_profile_path, method: :delete, local: true, data: { turbo_confirm: "Are you sure you want to delete your profile? This action cannot be undone." }) do |f| %>
+          <div class="mb-4">
+            <%= f.label :password, "Enter your password to confirm deletion", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.password_field :password, required: true, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" %>
+          </div>
+          <%= f.submit "Delete Profile", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 

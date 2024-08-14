@@ -3104,3 +3104,18 @@
 
 # 2024-08-13 13:52:46.657155
 +remove duplicate code from the /quizzes/new page
+
+# 2024-08-13 13:56:43.985217
++in the /quizzes/new page add some more formatting to make it look more modern, dont change anything else in the page including its functionalities
+
+# 2024-08-14 07:04:07.930584
++in /quizzes/new page change the back to quizzes button to say back to main and when pressed to bring the user back to the main page
+
+# 2024-08-14 07:06:24.840090
++Add a home button in the header if the user has navigated to any other page but the main page, if this button is pressed navigate the user back to the main page
+
+# 2024-08-14 07:07:31.330766
++Move the home button to the left side of the header
+
+# 2024-08-14 07:08:19.967231
++remove the back home button from /quizzes/new page

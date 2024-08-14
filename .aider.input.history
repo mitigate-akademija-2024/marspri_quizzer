@@ -3119,3 +3119,24 @@
 
 # 2024-08-14 07:08:19.967231
 +remove the back home button from /quizzes/new page
+
+# 2024-08-14 08:48:59.007728
++if the view results page was accsesed through the profile instead of the back to quizzes button there should ba a back to profile button that rederects the user back to the profile page
+
+# 2024-08-14 08:50:38.640852
++in the /quizzes/id/results the button back to quizzes should rederect to the /avalibe page
+
+# 2024-08-14 08:51:55.519493
++in this page /quizzes/available next to the take quiz button add top scores button
+
+# 2024-08-14 08:53:19.585613
++in page /quizzes/id/top_scores button back to quizzes should rederect to /quizzes/available page
+
+# 2024-08-14 08:57:06.091084
++in the /quizzes/id/top_scores page there is a duplicate of the top scores table, i like the one at the top better so remove the bottom on without changing the pages functionalites
+
+# 2024-08-14 08:57:56.693499
++without changeing enything else or the function of the page in page /quizzes/id/top_scores button back to quizzes should rederect to /quizzes/available page
+
+# 2024-08-14 09:00:55.969474
++/ask in the /quizzes/id/take page there is an alert if the user tries to submit a quiz without answering any questions, where is the alert located in my code?

@@ -104,7 +104,7 @@ class QuizzesController < ApplicationController
     @questions = @quiz.questions.includes(:answers)
     
     if params[:answers].nil?
-      flash[:alert] = "Please answer at least one question before submitting."
+      flash[:alert] = "Please answer all questions before submitting."
       redirect_to take_quiz_path(@quiz) and return
     end
 
@@ -151,6 +151,7 @@ class QuizzesController < ApplicationController
       params[:user_answers].to_unsafe_h
     end
     @user = current_user
+    @from_profile = params[:from_profile]
   end
 
   def share_results

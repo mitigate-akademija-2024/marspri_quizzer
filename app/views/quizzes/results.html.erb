@@ -31,6 +31,44 @@
           <% end %>
         </div>
 
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold mb-4">Provide Feedback</h3>
+          <%= form_tag(submit_feedback_quiz_path(@quiz), method: :post, remote: true, id: 'feedback-form') do %>
+            <%= hidden_field_tag :score, @score %>
+            <%= hidden_field_tag :user_answers, @user_answers.to_json %>
+            <%= text_area_tag :feedback, nil, class: "w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none", rows: 4, placeholder: "Your feedback on this quiz (optional)" %>
+            <div class="mt-4 flex items-center space-x-4">
+              <div>
+                <%= radio_button_tag :feedback_type, 'positive', false, class: "form-radio" %>
+                <%= label_tag :feedback_type_positive, "Positive", class: "ml-2" %>
+              </div>
+              <div>
+                <%= radio_button_tag :feedback_type, 'negative', false, class: "form-radio" %>
+                <%= label_tag :feedback_type_negative, "Negative", class: "ml-2" %>
+              </div>
+            </div>
+            <%= submit_tag "Submit Feedback", class: "mt-4 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+          <% end %>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const form = document.getElementById('feedback-form');
+              form.addEventListener('ajax:success', function(event) {
+                const [data, status, xhr] = event.detail;
+                if (data.status === 'success') {
+                  alert(data.message);
+                } else {
+                  alert('Error: ' + data.message);
+                }
+              });
+              form.addEventListener('ajax:error', function(event) {
+                const [data, status, xhr] = event.detail;
+                alert('An error occurred while submitting feedback: ' + (data.message || 'Please try again.'));
+              });
+            });
+          </script>
+        </div>
+
         <div class="mt-8 flex space-x-4">
           <% if params[:from_profile] %>
             <%= link_to "Back to Profile", user_profile_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>

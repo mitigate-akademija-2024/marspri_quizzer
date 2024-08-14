@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores ]
+  before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores feedbacks ]
   before_action :authorize_quiz, only: %i[ edit update destroy ]
   before_action :require_login, only: [:show]
 
@@ -145,13 +145,49 @@ class QuizzesController < ApplicationController
       begin
         JSON.parse(params[:user_answers])
       rescue JSON::ParserError
-        eval(params[:user_answers])
+        {}
       end
     else
       params[:user_answers].to_unsafe_h
     end
     @user = current_user
     @from_profile = params[:from_profile]
+  end
+
+  def submit_feedback
+    @quiz = Quiz.find(params[:id])
+    feedback = params[:feedback]
+    feedback_type = params[:feedback_type]
+    
+    if feedback.present? && feedback_type.present?
+      result = Result.new(
+        quiz: @quiz,
+        user: current_user,
+        score: params[:score],
+        user_answers: params[:user_answers],
+        feedback: feedback,
+        feedback_type: feedback_type
+      )
+      
+      if result.save
+        flash[:notice] = "Thank you for your feedback!"
+        message = "Feedback saved successfully."
+        status = :ok
+      else
+        flash[:alert] = "Unable to save feedback. Please try again."
+        message = "Error saving feedback: #{result.errors.full_messages.join(', ')}"
+        status = :unprocessable_entity
+      end
+    else
+      flash[:alert] = "Feedback and feedback type cannot be blank."
+      message = "Feedback and feedback type cannot be blank."
+      status = :unprocessable_entity
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to results_quiz_path(@quiz, score: params[:score], user_answers: params[:user_answers]) }
+      format.json { render json: { status: status == :ok ? 'success' : 'error', message: message }, status: status }
+    end
   end
 
   def share_results
@@ -173,6 +209,10 @@ class QuizzesController < ApplicationController
 
   def top_scores
     @top_scores = @quiz.top_scores
+  end
+
+  def feedbacks
+    @feedbacks = @quiz.results.where.not(feedback: nil).includes(:user).order(created_at: :desc)
   end
 
   private

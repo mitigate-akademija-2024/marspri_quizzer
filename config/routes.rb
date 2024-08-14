@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'share_results', on: :member
     get 'shared_results', on: :member
     get 'top_scores', on: :member
+    post 'submit_feedback', on: :member
+    get 'feedbacks', on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

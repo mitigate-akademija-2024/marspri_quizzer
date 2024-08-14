@@ -150,6 +150,7 @@ class QuizzesController < ApplicationController
     else
       params[:user_answers].to_unsafe_h
     end
+    @user = current_user
   end
 
   def share_results

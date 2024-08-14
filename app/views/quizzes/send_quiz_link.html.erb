@@ -1,0 +1,17 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+    <div class="p-6 sm:p-10">
+      <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Send Quiz Link</h1>
+      
+      <%= form_tag(send_quiz_link_quiz_path(@quiz), method: :post) do %>
+        <div class="mb-4">
+          <%= label_tag :emails, "Email Addresses (comma-separated)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= text_area_tag :emails, nil, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md", rows: 3, required: true %>
+        </div>
+        
+        <%= submit_tag "Send Link", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

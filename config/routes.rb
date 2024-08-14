@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  
   root 'main#index'
 
   get "/main", to: "main#index", as: "main"
@@ -29,6 +31,12 @@ Rails.application.routes.draw do
     post 'submit_feedback', on: :member
     get 'feedbacks', on: :member
     delete 'destroy_feedback', on: :member
+    member do
+      get 'share', to: 'quiz_share#new', as: 'share_quiz'
+      post 'share', to: 'quiz_share#create'
+      get 'send_link', to: 'quizzes#send_quiz_link', as: 'send_quiz_link'
+      post 'send_link', to: 'quizzes#send_quiz_link'
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

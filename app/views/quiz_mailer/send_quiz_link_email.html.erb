@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>You've been invited to take a quiz!</h1>
+  <p>
+    You have been invited to take the quiz: <%= @quiz.title %>
+  </p>
+  <p>
+    To take the quiz, just follow this link: <%= link_to 'Take Quiz', @quiz_link %>
+  </p>
+  <p>Good luck!</p>
+</body>
+</html>

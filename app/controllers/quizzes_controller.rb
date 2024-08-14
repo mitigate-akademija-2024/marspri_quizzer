@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores feedbacks ]
+  before_action :set_quiz, only: %i[ show edit update destroy take submit results top_scores feedbacks send_quiz_link ]
   before_action :authorize_quiz, only: %i[ edit update destroy ]
   before_action :require_login, only: [:show]
 
@@ -225,6 +225,35 @@ class QuizzesController < ApplicationController
       flash[:alert] = "You are not authorized to delete this feedback."
     end
     redirect_to feedbacks_quiz_path(@quiz)
+  end
+
+  def send_quiz_link
+    @quiz = Quiz.find(params[:id])
+    if request.get?
+      render :send_quiz_link
+    elsif request.post?
+      emails = params[:emails].split(',').map(&:strip)
+      valid_emails = []
+      invalid_emails = []
+
+      emails.each do |email|
+        if email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+          valid_emails << email
+        else
+          invalid_emails << email
+        end
+      end
+
+      if invalid_emails.any?
+        flash.now[:alert] = "The following email(s) are invalid: #{invalid_emails.join(', ')}"
+        render :send_quiz_link
+      else
+        valid_emails.each do |email|
+          QuizMailer.send_quiz_link_email(email, @quiz).deliver_later
+        end
+        redirect_to available_quizzes_path, notice: 'Quiz link sent successfully!'
+      end
+    end
   end
 
   private

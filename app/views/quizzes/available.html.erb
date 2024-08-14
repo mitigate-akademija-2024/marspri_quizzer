@@ -12,7 +12,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <% @quizzes.each do |quiz| %>
         <div class="bg-indigo-100 rounded-lg p-6 mb-8">
-          <h2 class="text-xl font-semibold mb-2"><%= quiz.title %></h2>
+          <div class="flex justify-between items-start mb-4">
+            <h2 class="text-xl font-semibold"><%= quiz.title %></h2>
+            <%= button_to "Send link", send_quiz_link_quiz_path(quiz), method: :get, class: "inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" %>
+          </div>
           <p class="text-black-600 mb-4"><%= quiz.description %></p>
           <p class="text-sm text-green-950 mb-2">
             Created by: <%= quiz.creator ? quiz.creator.username : 'Unknown' %>

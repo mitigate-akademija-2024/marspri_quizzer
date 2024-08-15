@@ -4211,3 +4211,60 @@
 
 # 2024-08-15 07:10:14.752408
 +the page gets the return_to=%2Fquizzes parameter but still returns to /quizzes/available page instead of the /quizzes page
+
+# 2024-08-15 10:43:37.574792
++NoMethodError in QuizzesController#results
++undefined method `to_unsafe_h' for nil:NilClass
++Extracted source (around line #151):
++149
++150
++151
++152
++153
++154
++              
++      end
++    else
++      params[:user_answers].to_unsafe_h
++    end
++    @user = current_user
++    @from_profile = params[:from_profile]
++
++Rails.root: /workspaces/marspri_quizzer
++
++Application Trace | Framework Trace | Full Trace
++app/controllers/quizzes_controller.rb:151:in `results'
++Request
++Parameters:
++
++{"score"=>"50.0", "id"=>"1"}
+
+# 2024-08-15 10:44:13.306048
++NoMethodError in Quizzes#shared_results
++Showing /workspaces/marspri_quizzer/app/views/quizzes/shared_results.html.erb where line #15 raised:
++
++undefined method `[]' for nil:NilClass
++Extracted source (around line #16):
++14
++15
++16
++17
++18
++19
++              
++'.freeze;                 question.answers.each do |answer| 
++ @output_buffer.safe_append='                  <div class="flex items-center space-x-2">
++'.freeze;                     if @user_answers[question.id.to_s] == answer.id.to_s 
++                       if answer.correct 
++ @output_buffer.safe_append='                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
++'.freeze;                       else 
++
+
+# 2024-08-15 10:55:19.285142
++/ask how is the search function working?
+
+# 2024-08-15 10:57:02.273001
++how does the search function currently work in my code?
+
+# 2024-08-15 11:12:19.823456
++change the name of the app from QuizzerApp to Quizzer

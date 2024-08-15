@@ -147,8 +147,10 @@ class QuizzesController < ApplicationController
       rescue JSON::ParserError
         {}
       end
-    else
+    elsif params[:user_answers].respond_to?(:to_unsafe_h)
       params[:user_answers].to_unsafe_h
+    else
+      {}
     end
     @user = current_user
     @from_profile = params[:from_profile]
@@ -203,7 +205,7 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id])
     @questions = @quiz.questions.includes(:answers)
     @score = params[:score]
-    @user_answers = params[:user_answers].to_unsafe_h if params[:user_answers].present?
+    @user_answers = params[:user_answers].present? ? JSON.parse(params[:user_answers]) : {}
     render :shared_results
   end
 

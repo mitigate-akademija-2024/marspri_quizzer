@@ -12,7 +12,7 @@
               <div class="space-y-2">
                 <% question.answers.each do |answer| %>
                   <div class="flex items-center space-x-2">
-                    <% if @user_answers[question.id.to_s] == answer.id.to_s %>
+                    <% if @user_answers[question.id.to_s].present? && @user_answers[question.id.to_s] == answer.id.to_s %>
                       <% if answer.correct %>
                         <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                       <% else %>

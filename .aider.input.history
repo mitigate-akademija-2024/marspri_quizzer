@@ -4205,3 +4205,9 @@
 +
 +Tokens: 10,494 sent, 379 received. Cost: $0.04 message, $0.36 session.
 +Applied edit to app/javascript/controllers/nested_form_controller.js
+
+# 2024-08-15 07:08:51.775404
++if the top scores were accsesed from the /quizzes page the back to quizzes button should bring the user back to the /quizzes page
+
+# 2024-08-15 07:10:14.752408
++the page gets the return_to=%2Fquizzes parameter but still returns to /quizzes/available page instead of the /quizzes page

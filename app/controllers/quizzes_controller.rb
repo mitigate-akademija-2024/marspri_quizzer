@@ -209,6 +209,7 @@ class QuizzesController < ApplicationController
 
   def top_scores
     @top_scores = @quiz.top_scores
+    @return_to = params[:return_to] || available_quizzes_path
   end
 
   def feedbacks

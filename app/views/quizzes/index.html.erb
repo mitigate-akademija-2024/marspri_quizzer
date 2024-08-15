@@ -24,7 +24,7 @@
               <% else %>
                 <span class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-400 bg-gray-200 cursor-not-allowed" title="This quiz doesn't have any questions yet">Take Quiz</span>
               <% end %>
-              <%= link_to "Top Scores", top_scores_quiz_path(quiz), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+              <%= link_to "Top Scores", top_scores_quiz_path(quiz, return_to: quizzes_path), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
             </div>
           </div>
         </div>

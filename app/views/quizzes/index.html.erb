@@ -3,6 +3,14 @@
     <h1 class="text-4xl font-extrabold mb-2 text-indigo-900"><%= @title %></h1>
     <p class="text-xl text-indigo-700 mb-8"><%= @description %></p>
 
+    <% if @quizzes.empty? %>
+      <div class="bg-white shadow-lg rounded-lg overflow-hidden p-6 mb-8">
+        <p class="text-xl text-indigo-800 mb-4">You haven't created any quizzes yet!</p>
+        <p class="text-gray-600 mb-4">Why not create your first quiz? It's easy and fun!</p>
+        <%= link_to "Create Your First Quiz", new_quiz_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    <% end %>
+
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       <% @quizzes.each do |quiz| %>
         <div class="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
@@ -23,8 +31,10 @@
       <% end %>
     </div>
 
-    <div class="mt-12 text-center">
-      <%= link_to "Create New Quiz", new_quiz_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-    </div>
+    <% unless @quizzes.empty? %>
+      <div class="mt-12 text-center">
+        <%= link_to "Create New Quiz", new_quiz_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    <% end %>
   </div>
 </div>
